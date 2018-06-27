@@ -24,7 +24,7 @@
 
     /**
     * # cak-tree tree component
-    * In typical use, just put some `<csak-tree-item>` into `<csak-tree>`   
+    * In typical use, just put some `<csak-tree-item>` into `<csak-tree>`
     * <csak-tree>
     *   <csak-tree-item>First item</csak-tree-item>
     * </csak-tree>
@@ -35,12 +35,12 @@
     *  Custom property | Description | Default
     *  ----------------|-------------|---------
     *  --csak-tree-item-indent | Items indent value | 1em
-    *  --iron-icon-width | Inherited css variable | 16px    
-    * 
+    *  --iron-icon-width | Inherited css variable | 16px
+    *
     * @class CsakTree
     * @extends {Polymer.Element}
     * @customElement
-    * @polymer   
+    * @polymer
     */
     class CsakTree extends Polymer.Element {
       static get is() { return 'csak-tree'; }
@@ -117,9 +117,9 @@
       /**Polymer bugifx?: the observer not fired when newvalue equal oldvalue**/
       /**
        * _selectedItem change
-       * 
-       * @param {any} newValue 
-       * @param {any} oldValue 
+       *
+       * @param {any} newValue
+       * @param {any} oldValue
        * @memberof CsakTree
        */
       _selectedItemChange(newValue, oldValue) {
@@ -136,9 +136,9 @@
 
       /**
        * _visible change event
-       * 
-       * @param {any} newValue 
-       * @param {any} oldValue 
+       *
+       * @param {any} newValue
+       * @param {any} oldValue
        * @event
        * @memberof CsakTree
        */
@@ -166,7 +166,7 @@
 
       /**
        * Notify children for rootparent change
-       * 
+       *
        * @memberof CsakTree
        */
       notifyChildren() {
@@ -188,8 +188,8 @@
 
       /**
        * Mouse click event
-       * 
-       * @param {any} e 
+       *
+       * @param {any} e
        * @event
        * @memberof CsakTree
        */
@@ -200,7 +200,7 @@
 
       /**
        * Expand children
-       * 
+       *
        * @memberof CsakTree
        */
       expandAll() {
@@ -214,7 +214,7 @@
 
       /**
        * Collapse children
-       * 
+       *
        * @memberof CsakTree
        */
       collapseAll() {
@@ -228,8 +228,8 @@
 
       /**
        * Lock tree (prevent user action)
-       * 
-       * @param {any} newValue 
+       *
+       * @param {any} newValue
        * @param {any} oldValue
        * @event
        * @memberof CsakTree
@@ -244,9 +244,9 @@
 
       /**
        * Expanded prop changed
-       * 
-       * @param {any} newValue 
-       * @param {any} oldValue 
+       *
+       * @param {any} newValue
+       * @param {any} oldValue
        * @memberof CsakTree
        */
       _expandedChange(newValue, oldValue) {
@@ -259,9 +259,9 @@
 
       /**
        * Build tree from json
-       * 
-       * @param {JSon} json 
-       * @param {CsakTree | CsakTreeItem} parent 
+       *
+       * @param {JSon} json
+       * @param {CsakTree | CsakTreeItem} parent
        * @memberof CsakTree
        */
       _processData(json, parent) {
@@ -303,7 +303,7 @@
             el.expanded = false;
           }
         }
-    
+
         //arrays
         for (let key of keys) {
           let value = json[key];
@@ -327,14 +327,20 @@
 
       /**
        * When set data prop then fire _processData method
-       * 
-       * @param {any} newValue 
-       * @param {any} oldValue 
+       *
+       * @param {any} newValue
+       * @param {any} oldValue
        * @memberof CsakTree
        */
       _dataChange(newValue, oldValue) {
         if (newValue) {
-          let datajson = JSON.parse(newValue);
+          let datajson;
+          if (typeof newValue === 'string') {
+            datajson = JSON.parse(newValue);
+          }
+          if (typeof newValue === 'object') {
+            datajson = newValue;
+          }
           this._clearTree(this);
           this._processData(datajson, this);
           if (this.expanded) {
@@ -346,9 +352,9 @@
 
       /**
       * Generate uuid for _id
-      * 
+      *
       * @static
-      * @returns 
+      * @returns
       * @memberof CsakTreeItem
       */
       static uuidv4() {
@@ -357,7 +363,7 @@
         )
       }
     }
-    window.customElements.define(CsakTree.is, CsakTree);    
+    window.customElements.define(CsakTree.is, CsakTree);
   </script>
 
 </dom-module>
